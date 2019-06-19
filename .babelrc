@@ -23,8 +23,7 @@
         "@babel/plugin-transform-block-scoped-functions",
         "@babel/plugin-transform-async-to-generator",
         ["@babel/plugin-proposal-decorators", {
-            "legacy": true,
-            "decoratorsBeforeExport": true
+            "legacy": true
         }],
         ["@babel/plugin-proposal-class-properties", {
             "loose": true

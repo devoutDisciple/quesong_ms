@@ -5,13 +5,13 @@ import {LocaleProvider} from 'antd';
 import {createStore} from './store/createStore';
 import {Provider} from 'mobx-react';
 import {configure} from 'mobx';
-import Router from './router/router';
+import Router from './router/index';
 import './style/common.css';
-import './style/main.less';
+import './style/common.less';
 
 const stores = createStore();
 // 开启严格模式
-configure({ enforceActions: 'strict' });
+configure({ enforceActions: 'always' });
 
 const render = () => {
 	ReactDOM.render(
