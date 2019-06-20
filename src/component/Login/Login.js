@@ -1,12 +1,21 @@
 import React from 'react';
 import './login.less';
 import { Form, Icon, Input, Button, Row } from 'antd';
+import {inject, observer} from 'mobx-react';
 
+@inject('GlobalStore')
+@observer
 class Login extends React.Component{
+
+    constructor(props) {
+        super(props);
+        this.globalStore = this.props.GlobalStore;
+    }
 
     btnClick() {
         console.log(123);
         console.log(this.props.form.getFieldsValue());
+        this.globalStore.getLogin();
     }
 
 	render() {

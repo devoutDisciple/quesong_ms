@@ -22,7 +22,13 @@ class GlobalStore {
 
     @action
     getLogin() {
-        request.get('');
+        try {
+            let login = request.get('/account/login');
+            console.log(login);
+        } catch (error) {
+            console.log(error);
+        }
+
     }
 
     @action

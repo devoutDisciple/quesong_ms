@@ -13,7 +13,6 @@ export default class MyLayout extends React.Component{
 
     constructor(props) {
         super(props);
-        console.log(this);
         this.globalStore = this.props.GlobalStore;
     }
 
