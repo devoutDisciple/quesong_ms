@@ -7,7 +7,6 @@ const webpackBaseConfig = require('./webpack.config.base');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 // var CompressionWebpackPlugin = require('compression-webpack-plugin');// 开启gzip压缩
-// const config = require('../config/webpackConfig');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 //获取npm后面的命令
 const commandTarget = process.env.npm_lifecycle_event; // npm run start:build 获取的是start:build

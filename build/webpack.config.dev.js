@@ -17,11 +17,6 @@ if(_.includes(_.toLower(commandTarget), 'local')) API_SERVER = config.dev.LOCAL_
 if(_.includes(_.toLower(commandTarget), 'test')) API_SERVER = config.dev.TEST_SERVER;
 if(_.includes(_.toLower(commandTarget), 'online')) API_SERVER = config.dev.ONLINE_SERVER;
 
-// DEFALUT_SERVER: 'http://localhost:3001/',
-// LOCAL_SERVER: 'http://localhost:8888/', // 本地环境地址
-// TEST_SERVER: 'http://11.167.253.202:3001/', // 测试环境
-// ONLINE_SERVER: 'http://localhost:3001/' //线上环境
-
 console.log(chalk.yellow(`logging: API_SERVER is ${API_SERVER}`));
 
 let devPlugins = [
@@ -45,14 +40,7 @@ let devConfig = {
 		contentBase: path.resolve(__dirname, '../dist'),
 		port: config.dev.port,
 		open: config.dev.openBrowser,
-		historyApiFallback: true,
-		// compress: true,
-		proxy: {
-			'/': {
-				target: API_SERVER,
-				changeOrigin: true,
-			}
-		}
+		historyApiFallback: true
 	},
 	devtool: 'inline-source-map',
 };

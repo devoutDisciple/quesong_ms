@@ -4,9 +4,9 @@ module.exports = {
 		publicPath: '/',
 		openBrowser: false,
 		DEFALUT_SERVER: 'http://localhost:3001/',
-		LOCAL_SERVER: 'http://localhost:8888/', // 本地环境地址
-		TEST_SERVER: 'http://30.40.36.40:8888/', // 测试环境 高云山机器地址  http://30.40.36.40:8888
-		ONLINE_SERVER: 'http://localhost:3001/' //线上环境
+		LOCAL_SERVER: 'http://localhost:8888/',
+		TEST_SERVER: 'http://30.40.36.40:8888/',
+		ONLINE_SERVER: 'http://localhost:3001/'
 	},
 	prod: {
 		publicPath: '../dist/',

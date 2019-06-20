@@ -9,7 +9,7 @@ Axios.defaults = _.assign(Axios.defaults, {
 	// 	// 对 data 进行任意转换处理
 	// 	return data;
 	// }],
-
+    baseURL: 'http://localhost:3001/',
 	// `transformResponse` 在传递给 then/catch 前，允许修改响应数据
 	transformResponse: [function (data) {
 		// 对 data 进行任意转换处理
