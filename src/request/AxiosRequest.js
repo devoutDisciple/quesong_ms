@@ -19,7 +19,9 @@ Axios.defaults = _.assign(Axios.defaults, {
 	// headers: {'X-Requested-With': 'XMLHttpRequest'},
 	// `timeout` 指定请求超时的毫秒数(0 表示无超时时间)
 	// 如果请求话费了超过 `timeout` 的时间，请求将被中断
-	timeout: 30000,
+    timeout: 30000,
+    // `withCredentials` 表示跨域请求时是否需要使用凭证
+    withCredentials: true, // 默认的
 	// `auth` 表示应该使用 HTTP 基础验证，并提供凭据
 	// 这将设置一个 `Authorization` 头，覆写掉现有的任意使用 `headers` 设置的自定义 `Authorization`头
 });

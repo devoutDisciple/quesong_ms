@@ -13,9 +13,12 @@ class Login extends React.Component{
     }
 
     btnClick() {
-        console.log(123);
-        console.log(this.props.form.getFieldsValue());
-        this.globalStore.getLogin();
+        this.props.form.validateFields((err, values) => {
+            if (!err) {
+                this.globalStore.getLogin(values);
+            }
+        });
+
     }
 
 	render() {

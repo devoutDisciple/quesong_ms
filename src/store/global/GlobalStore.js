@@ -1,6 +1,7 @@
 import {
 	observable,
-	action
+	action,
+    runInAction
 } from 'mobx';
 import _ from 'lodash';
 import request from '../../request/AxiosRequest';
@@ -21,10 +22,12 @@ class GlobalStore {
     }
 
     @action
-    getLogin() {
+    async getLogin(values) {
         try {
-            let login = request.get('/account/login');
-            console.log(login);
+            let login = await request.post('/account/login', values);
+            runInAction(() => {
+                console.log(login);
+            });
         } catch (error) {
             console.log(error);
         }
