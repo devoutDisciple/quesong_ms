@@ -5,7 +5,7 @@ import {LocaleProvider} from 'antd';
 import {createStore} from './store/createStore';
 import {Provider} from 'mobx-react';
 import {configure} from 'mobx';
-import Router from './router/index';
+import Layout from './component/Layout/Layout';
 import './style/common.css';
 import './style/common.less';
 
@@ -17,7 +17,7 @@ const render = () => {
 	ReactDOM.render(
 		<Provider {...stores}>
 			<LocaleProvider locale={zhCN}>
-				<Router/>
+				<Layout />
 			</LocaleProvider>
 		</Provider>,
 		document.getElementById('root')

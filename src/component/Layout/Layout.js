@@ -1,31 +1,36 @@
 import React from 'react';
-import { Layout } from 'antd';
 import Login from '../Login/Login';
-import Content from '../Content/Content';
+import Home from '../Home/Home';
 import {inject, observer} from 'mobx-react';
-import { Route } from 'react-router-dom';
+import './layout.less';
+import { HashRouter as Router, Route, Switch } from 'react-router-dom';
+import Loading from '../Loading/Loading';
 
 @inject('GlobalStore')
 @observer
 export default class MyLayout extends React.Component{
 
-    constructor(props) {
-        super(props);
-        this.globalStore = this.props.GlobalStore;
-    }
+	constructor(props) {
+		super(props);
+		this.globalStore = props.GlobalStore;
+	}
 
-    componentDidMount() {
-    }
+	componentDidMount() {
+		this.globalStore.getLogin();
+	}
 
 	render() {
-        let isLogin = this.globalStore.isLogin;
-        console.log(isLogin);
-		return (
-            <Layout className="root_layout">
-                <Route  path="/" component={Login} />
-                <Route  path="/login" component={Login} />
-                <Route  path="/home" component={Content} />
-            </Layout>
-		);
+    	let {loginLoading} = this.globalStore;
+    	return (
+			<Loading show={ loginLoading }>
+				<Router>
+					<Switch>
+						<Route exact path="/" component={Home} />
+						<Route path="/login" component={Login} />
+						<Route path="/home" component={Home} />
+					</Switch>
+				</Router>
+			</Loading>
+    	);
 	}
 }
