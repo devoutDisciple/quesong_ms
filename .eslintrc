@@ -54,6 +54,7 @@
     "globals": {
         "io": true,
         "__dirname": true,
-        "process": true
+		"process": true,
+		"$": true
     }
 }

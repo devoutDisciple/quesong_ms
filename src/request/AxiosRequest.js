@@ -41,18 +41,13 @@ Axios.interceptors.response.use(function (res) {
 	console.log(res, 11);
 	if(res.status != 200) return Promise.reject('系统错误');
 	let data = JSON.parse(res.data);
-	let pathname = location.pathname;
+	let hash = location.hash;
 	// 用户没有登录或者登录超时
-	if(data.code == 401 && pathname != '/login') {
+	if(data.code == 401 && hash != '/login') {
 		message.warning('请重新登录');
-		location.href = '/login';
+		location.hash = '/login';
 		return Promise.reject('请重新登录');
 	}
-	// if(data.code == 400) {
-	// 	message.warning('请重新登录');
-	// 	location.href = '/login';
-	// 	return Promise.reject('请重新登录');
-	// }
 	if(data.code != 200) {
 		message.warning(data.message || '系统错误, 请稍后重试');
 		return Promise.reject(data.message || '系统错误, 请稍后重试');
@@ -75,6 +70,8 @@ Axios.interceptors.response.use(function (res) {
 
 export default {
 	get: (url = '', params = {}) => {
+		let campus = localStorage.getItem('campus') || '';
+		params.campus = campus;
 		return new Promise((resolve, reject) => {
 			Axios({
 				method: 'get',
@@ -92,6 +89,8 @@ export default {
 	},
 	post: (url = '', params = {}) => {
 		console.log(params);
+		let campus = localStorage.getItem('campus') || '';
+		params.campus = campus;
 		return new Promise((resolve, reject) => {
 			Axios({
 				method: 'post',
@@ -108,6 +107,8 @@ export default {
 		});
 	},
 	put: (url = '', params = {}) => {
+		let campus = localStorage.getItem('campus') || '';
+		params.campus = campus;
 		return new Promise((resolve, reject) => {
 			Axios({
 				method: 'put',
@@ -123,6 +124,8 @@ export default {
 		});
 	},
 	delete: (url = '', params = {}) => {
+		let campus = localStorage.getItem('campus') || '';
+		params.campus = campus;
 		return new Promise((resolve, reject) => {
 			Axios({
 				method: 'delete',

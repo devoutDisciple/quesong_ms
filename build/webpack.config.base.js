@@ -148,6 +148,9 @@ module.exports = (env = 'development') => {
 			// 	$config: getRealPath('../config/config'),
 			// }
 		},
+		externals: {
+			'$': 'jQuery'
+		},
 		plugins: [
 			COMMON_0_CSS,
 			COMMON_1_CSS,

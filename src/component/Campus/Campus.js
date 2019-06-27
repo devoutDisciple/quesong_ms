@@ -2,65 +2,107 @@ import React from 'react';
 import {inject, observer} from 'mobx-react';
 import './index.less';
 import {
-	Form, Input, Col, Button, Table
+	Form, Input, Col, Button, Table, Popconfirm, message
 } from 'antd';
 const FormItem = Form.Item;
+import AddDialog from './AddDialog';
+import EditorDialog from './EditorDialog';
+import Request from '../../request/AxiosRequest';
 
-@inject('GlobalStore')
+@inject('CampusStore')
 @observer
 class Campus extends React.Component{
 
 	constructor(props) {
 		super(props);
-		this.globalStore = props.GlobalStore;
+		this.campusStore = props.CampusStore;
 	}
 
 	state = {
-		dataSource: []
+		dataSource: [],
+		addDialogVisible: false,
+		editorDialogVisible: false,
+		editData: {}
 	}
 
 	componentDidMount() {
-
+		this.campusStore.getCampus();
 	}
 
-	onSearch() {
+	// 新增编辑框的显示
+	controllerAddDialog() {
+		this.setState({
+			addDialogVisible: !this.state.addDialogVisible
+		});
+	}
+	// 编辑框的显示
+	controllerEditorDialog() {
+		this.setState({
+			editorDialogVisible: !this.state.editorDialogVisible
+		});
+	}
 
+	// 确认删除
+	async onConfirmDelete(record) {
+		let result = await Request.post('/position/delete', {id: record.id});
+		console.log(result);
+		if(result.data == 'success') {
+			message.success('删除成功');
+			return this.onSearch();
+		}
+	}
+
+	// 点击修改
+	onEditorCampus(record) {
+		this.setState({
+			editData: record
+		}, () => {
+			this.controllerEditorDialog();
+		});
+	}
+
+	// 点击搜索
+	onSearch() {
+		this.campusStore.getCampus();
 	}
 
 	render() {
 		const formItemLayout = {
-			labelCol: { span: 4 },
-			wrapperCol: { span: 20 },
-		};
-		let campusList = this.globalStore.campus;
-		const { getFieldDecorator } = this.props.form;
-		const columns = [
-			{
-				title: '学校',
-				dataIndex: 'name',
-				key: 'name',
-				align: 'center'
-			},
-			{
-				title: '权重',
-				dataIndex: 'sort',
-				key: 'sort',
-				align: 'center'
-			},
-			{
-				title: '操作',
-				dataIndex: 'operation',
-				key: 'operation',
-				align: 'center',
-				render:(text, record) => {
+				labelCol: { span: 4 },
+				wrapperCol: { span: 20 },
+			}, campusList = this.campusStore.campus,
+			{addDialogVisible, editorDialogVisible, editData} = this.state,
+			{ getFieldDecorator } = this.props.form,
+			columns = [
+				{
+					title: '学校',
+					dataIndex: 'name',
+					key: 'name',
+					align: 'center'
+				},
+				{
+					title: '权重',
+					dataIndex: 'sort',
+					key: 'sort',
+					align: 'center'
+				},
+				{
+					title: '操作',
+					dataIndex: 'operation',
+					key: 'operation',
+					align: 'center',
+					render:(text, record) => {
 					/*eslint-disable*/
 					return <span className="common_table_span">
-						<a href={record.url} target="_blank">删除</a>
-						<a href={record.url} target="_blank">修改</a>
+						<Popconfirm placement="top" title="是否确认删除" onConfirm={this.onConfirmDelete.bind(this, record)} okText="确认" cancelText="取消">
+							<a href="javascript:;" target="_blank">删除</a>
+     					</Popconfirm>
+						<a href="javascript:;" onClick={this.onEditorCampus.bind(this, record)} target="_blank">修改</a>
 					</span>;
 				}
 			}
 		];
+		console.log(campusList, 234)
 		return (
 			<div className='common'>
 				<div className='common_search'>
@@ -75,7 +117,7 @@ class Campus extends React.Component{
 						</Col>
 						<Col span={6} offset={1}>
 							<Button type='primary' onClick={this.onSearch.bind(this)}>查询</Button>
-							<Button type='primary' onClick={this.onSearch.bind(this)}>新增</Button>
+							<Button type='primary' onClick={this.controllerAddDialog.bind(this)}>新增</Button>
 						</Col>
 					</Form>
 				</div>
@@ -91,6 +133,16 @@ class Campus extends React.Component{
 							}
 						}/>
 				</div>
+				{
+					addDialogVisible ?
+					<AddDialog controllerAddDialog={this.controllerAddDialog.bind(this)}/>
+					: null
+				}
+				{
+					editorDialogVisible ?
+					<EditorDialog controllerEditorDialog={this.controllerEditorDialog.bind(this)} editData={editData}/>
+					: null
+				}
 			</div>
 		);
 	}

@@ -20,11 +20,12 @@ export default class MyHeader extends React.Component{
 	async componentDidMount() {
 		await this.globalStore.getCampus();
 		let {campus} = this.globalStore;
-		let selectedKeys = campus && campus.length != 0 ? [String(campus[0].name)] : [];
+		let localCampus = localStorage.getItem('campus');
+		let selectedKeys = localCampus ? [localCampus] : campus && campus.length != 0 ? [String(campus[0].name)] : [];
 		this.setState({
 			selectedKeys: selectedKeys,
 		}, () => {
-			localStorage.setItem('campus', campus[0].name || '');
+			localStorage.setItem('campus', selectedKeys[0]);
 		});
 	}
 
