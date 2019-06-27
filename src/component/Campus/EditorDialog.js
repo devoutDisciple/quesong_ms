@@ -191,7 +191,7 @@ class AddDialog extends React.Component {
 				let result = await Request.post('/position/update', params);
 				if(result.data == 'success') {
 					message.success('编辑成功');
-					this.campusStore.getCampus();
+					this.props.onSearch();
 					return this.props.controllerEditorDialog();
 				}
 			} catch (error) {

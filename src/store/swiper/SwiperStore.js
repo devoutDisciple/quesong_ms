@@ -5,33 +5,33 @@ import {
 } from 'mobx';
 import request from '../../request/AxiosRequest';
 
-class CampusStore {
+class SwiperStore {
 
     // 校区list
     @observable
-	campus = [];
+	swiperList = [];
 
 	// 设置校区
 	@action
-    setCampus(data) {
-    	this.campus = data;
+    setSwiperList(data) {
+    	this.swiperList = data;
     }
 
 	//  获取校区
 	@action
-	 async getCampus(values) {
+	 async getSwiper() {
 	 	try {
-	 		let res = await request.get('/position/all', values);
+	 		let res = await request.get('/swiper/all');
 	 		runInAction(() => {
 				let data = res.data || [];
 				data.map(item => {
 					item.key = item.id;
 				});
-				this.setCampus(data || []);
+				this.setSwiperList(data || []);
 	 		});
 	 	} catch (error) {
 	 		console.log(error);
 	 	}
 	 }
 }
-export default new CampusStore();
+export default new SwiperStore();

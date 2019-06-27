@@ -26,7 +26,7 @@ class Campus extends React.Component{
 	}
 
 	componentDidMount() {
-		this.campusStore.getCampus();
+		this.onSearch();
 	}
 
 	// 新增编辑框的显示
@@ -63,7 +63,8 @@ class Campus extends React.Component{
 
 	// 点击搜索
 	onSearch() {
-		this.campusStore.getCampus();
+		let values = this.props.form.getFieldsValue();
+		this.campusStore.getCampus(values);
 	}
 
 	render() {
@@ -110,7 +111,7 @@ class Campus extends React.Component{
 						<Col span={6}>
 							<FormItem
 								label="校园名称">
-								{getFieldDecorator('campus')(
+								{getFieldDecorator('name')(
 									<Input placeholder="请输入校园名称" />
 								)}
 							</FormItem>
@@ -135,12 +136,17 @@ class Campus extends React.Component{
 				</div>
 				{
 					addDialogVisible ?
-					<AddDialog controllerAddDialog={this.controllerAddDialog.bind(this)}/>
+					<AddDialog
+						controllerAddDialog={this.controllerAddDialog.bind(this)}
+						onSearch={this.onSearch.bind(this)}/>
 					: null
 				}
 				{
 					editorDialogVisible ?
-					<EditorDialog controllerEditorDialog={this.controllerEditorDialog.bind(this)} editData={editData}/>
+					<EditorDialog
+						onSearch={this.onSearch.bind(this)}
+						controllerEditorDialog={this.controllerEditorDialog.bind(this)}
+						editData={editData}/>
 					: null
 				}
 			</div>

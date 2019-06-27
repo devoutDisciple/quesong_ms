@@ -71,7 +71,7 @@ Axios.interceptors.response.use(function (res) {
 export default {
 	get: (url = '', params = {}) => {
 		let campus = localStorage.getItem('campus') || '';
-		params.campus = campus;
+		params.position = campus;
 		return new Promise((resolve, reject) => {
 			Axios({
 				method: 'get',
@@ -90,7 +90,7 @@ export default {
 	post: (url = '', params = {}) => {
 		console.log(params);
 		let campus = localStorage.getItem('campus') || '';
-		params.campus = campus;
+		params.position = campus;
 		return new Promise((resolve, reject) => {
 			Axios({
 				method: 'post',
@@ -108,7 +108,7 @@ export default {
 	},
 	put: (url = '', params = {}) => {
 		let campus = localStorage.getItem('campus') || '';
-		params.campus = campus;
+		params.position = campus;
 		return new Promise((resolve, reject) => {
 			Axios({
 				method: 'put',
@@ -125,7 +125,7 @@ export default {
 	},
 	delete: (url = '', params = {}) => {
 		let campus = localStorage.getItem('campus') || '';
-		params.campus = campus;
+		params.position = campus;
 		return new Promise((resolve, reject) => {
 			Axios({
 				method: 'delete',

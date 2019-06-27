@@ -20,7 +20,7 @@ export default class MyMenu extends React.Component {
 				inlineCollapsed={false}>
 				<Menu.Item key="/home/campus">
 					<Icon type="inbox" />
-					<span>校区</span>
+					<span>校区管理</span>
 				</Menu.Item>
 				<Menu.Item key="/home/swiper">
 					<Icon type="pie-chart" />

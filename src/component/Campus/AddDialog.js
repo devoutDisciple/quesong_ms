@@ -183,7 +183,7 @@ class AddDialog extends React.Component {
 				console.log(result,3333);
 				if(result.data == 'success') {
 					message.success('新增成功');
-					this.campusStore.getCampus();
+					this.props.onSearch();
 					return this.props.controllerAddDialog();
 				}
 			} catch (error) {
