@@ -79,12 +79,16 @@ export default class Swiper extends React.Component{
 					title: '图片',
 					dataIndex: 'url',
 					key: 'url',
-					align: 'center'
+					align: 'center',
+					render:(text, record) => {
+						return <img className='swiper_table_img' src={record.url}/>;
+					}
+
 				},
 				{
 					title: '关联店铺',
-					dataIndex: 'shop',
-					key: 'shop',
+					dataIndex: 'shopName',
+					key: 'shopName',
 					align: 'center'
 				},
 				{
@@ -99,16 +103,15 @@ export default class Swiper extends React.Component{
 					key: 'operation',
 					align: 'center',
 					render:(text, record) => {
-					/*eslint-disable*/
-					return <span className="common_table_span">
-						<Popconfirm placement="top" title="是否确认删除" onConfirm={this.onConfirmDelete.bind(this, record)} okText="确认" cancelText="取消">
-							<a href="javascript:;" target="_blank">删除</a>
+						return <span className="common_table_span">
+							<Popconfirm placement="top" title="是否确认删除" onConfirm={this.onConfirmDelete.bind(this, record)} okText="确认" cancelText="取消">
+								<a href="javascript:;" >删除</a>
      					</Popconfirm>
-						<a href="javascript:;" onClick={this.onEditorCampus.bind(this, record)} target="_blank">修改</a>
-					</span>;
+							<a href="javascript:;" onClick={this.onEditorCampus.bind(this, record)}>修改</a>
+						</span>;
+					}
 				}
-			}
-		];
+			];
 		return (
 			<div className='common'>
 				<div className='common_search'>
@@ -128,18 +131,18 @@ export default class Swiper extends React.Component{
 				</div>
 				{
 					addDialogVisible ?
-					<AddDialog
-						controllerAddDialog={this.controllerAddDialog.bind(this)}
-						onSearch={this.onSearch.bind(this)}/>
-					: null
+						<AddDialog
+							controllerAddDialog={this.controllerAddDialog.bind(this)}
+							onSearch={this.onSearch.bind(this)}/>
+						: null
 				}
 				{
 					editorDialogVisible ?
-					<EditorDialog
-						onSearch={this.onSearch.bind(this)}
-						controllerEditorDialog={this.controllerEditorDialog.bind(this)}
-						editData={editData}/>
-					: null
+						<EditorDialog
+							onSearch={this.onSearch.bind(this)}
+							controllerEditorDialog={this.controllerEditorDialog.bind(this)}
+							editData={editData}/>
+						: null
 				}
 			</div>
 		);

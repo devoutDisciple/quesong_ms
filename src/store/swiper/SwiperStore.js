@@ -24,8 +24,8 @@ class SwiperStore {
 	 		let res = await request.get('/swiper/all');
 	 		runInAction(() => {
 				let data = res.data || [];
-				data.map(item => {
-					item.key = item.id;
+				data.map((item, index) => {
+					item.key = index;
 				});
 				this.setSwiperList(data || []);
 	 		});

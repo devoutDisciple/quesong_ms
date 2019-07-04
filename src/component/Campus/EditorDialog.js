@@ -214,11 +214,11 @@ class AddDialog extends React.Component {
 			<div>
 				<Modal
 					className='common_dialog'
-					title="新增校区"
+					title="编辑校区"
 					visible={true}
 					onOk={this.handleOk.bind(this)}
 					onCancel={this.handleCancel.bind(this)}>
-					<Form className="book_search_form" {...formItemLayout} onSubmit={this.handleSubmit}>
+					<Form className="book_search_form" {...formItemLayout}>
 						<FormItem
 							label="校区名称">
 							{getFieldDecorator('name', {
